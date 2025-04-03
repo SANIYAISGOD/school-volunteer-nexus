@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar as CalendarIcon, Clock, MapPin, Users, Calendar, Search } from 'lucide-react';
+import { CalendarIcon, Clock, MapPin, Users, Calendar as CalendarLucide, Search } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
@@ -123,7 +123,7 @@ const Events = () => {
   const upcomingEvents = filterEvents(eventsData.filter(event => event.upcoming));
   const pastEvents = filterEvents(eventsData.filter(event => !event.upcoming));
 
-  const formatDate = (dateString: string) => {
+  const formatEventDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
@@ -237,7 +237,7 @@ const Events = () => {
                 </div>
               ) : (
                 <div className="text-center py-12 bg-white rounded-lg shadow">
-                  <Calendar className="mx-auto h-12 w-12 text-gray-400" />
+                  <CalendarLucide className="mx-auto h-12 w-12 text-gray-400" />
                   <h3 className="mt-4 text-xl font-medium text-gray-900">No upcoming events found</h3>
                   <p className="mt-2 text-gray-600">Try adjusting your search or filter criteria</p>
                 </div>
@@ -253,7 +253,7 @@ const Events = () => {
                 </div>
               ) : (
                 <div className="text-center py-12 bg-white rounded-lg shadow">
-                  <Calendar className="mx-auto h-12 w-12 text-gray-400" />
+                  <CalendarLucide className="mx-auto h-12 w-12 text-gray-400" />
                   <h3 className="mt-4 text-xl font-medium text-gray-900">No past events found</h3>
                   <p className="mt-2 text-gray-600">Try adjusting your search or filter criteria</p>
                 </div>
@@ -283,7 +283,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, isPast = false }) => {
         </div>
         <CardDescription className="flex items-center mt-1">
           <CalendarIcon className="h-4 w-4 mr-1" />
-          {formatDate(event.date)}
+          {formatEventDate(event.date)}
         </CardDescription>
       </CardHeader>
       <CardContent className="py-2">
