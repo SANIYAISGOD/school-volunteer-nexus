@@ -22,9 +22,9 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isUserTypeDialogOpen, setIsUserTypeDialogOpen] = useState(false);
-  const [authType, setAuthType] = useState<'student' | 'volunteer' | 'school'>('student');
+  const [authType, setAuthType] = useState('student');
 
-  const openAuthModal = (type: 'student' | 'volunteer' | 'school') => {
+  const openAuthModal = (type) => {
     setAuthType(type);
     setIsUserTypeDialogOpen(false);
     setIsAuthModalOpen(true);

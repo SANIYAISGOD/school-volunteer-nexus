@@ -24,21 +24,6 @@ const AuthModal = ({ isOpen, onClose, authType }) => {
       description: `Successfully ${activeTab === 'login' ? 'logged in' : 'registered'} as ${authType}`,
     });
     
-    // Redirect to the appropriate dashboard
-    let redirectPath = '/';
-    if (authType === 'student') {
-      redirectPath = '/student/dashboard';
-    } else if (authType === 'volunteer') {
-      redirectPath = '/volunteer/dashboard';
-    } else if (authType === 'school') {
-      redirectPath = '/school/dashboard';
-    }
-    
-    // Use setTimeout to simulate a brief delay before redirecting
-    setTimeout(() => {
-      window.location.href = redirectPath;
-    }, 1000);
-    
     // Reset form and close modal
     resetForm();
     onClose();
@@ -58,8 +43,6 @@ const AuthModal = ({ isOpen, onClose, authType }) => {
         return <Users className="h-5 w-5 mr-2" />;
       case 'school':
         return <School className="h-5 w-5 mr-2" />;
-      default:
-        return null;
     }
   };
 
