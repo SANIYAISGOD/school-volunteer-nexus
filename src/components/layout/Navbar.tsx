@@ -5,22 +5,33 @@ import { Button } from '@/components/ui/button';
 import {
   Menu,
   X,
-  ChevronDown,
   GraduationCap,
   Users,
   School
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import AuthModal from '@/components/auth/AuthModal';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle 
+} from '@/components/ui/dialog';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isUserTypeDialogOpen, setIsUserTypeDialogOpen] = useState(false);
   const [authType, setAuthType] = useState<'student' | 'volunteer' | 'school'>('student');
 
   const openAuthModal = (type: 'student' | 'volunteer' | 'school') => {
     setAuthType(type);
+    setIsUserTypeDialogOpen(false);
     setIsAuthModalOpen(true);
+  };
+
+  const handleLoginClick = () => {
+    setIsUserTypeDialogOpen(true);
   };
 
   const navLinks = [
@@ -65,41 +76,13 @@ const Navbar = () => {
           </nav>
           
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 space-x-2">
-            <div className="relative group">
-              <Button
-                variant="outline"
-                className="flex items-center"
-                onClick={() => {}}
-              >
-                Login
-                <ChevronDown className="ml-1 h-4 w-4" />
-              </Button>
-              <div className="absolute right-0 mt-1 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                <div className="py-1" role="menu">
-                  <button
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                    onClick={() => openAuthModal('student')}
-                  >
-                    <GraduationCap className="mr-2 h-4 w-4" />
-                    Student
-                  </button>
-                  <button
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                    onClick={() => openAuthModal('volunteer')}
-                  >
-                    <Users className="mr-2 h-4 w-4" />
-                    Volunteer
-                  </button>
-                  <button
-                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                    onClick={() => openAuthModal('school')}
-                  >
-                    <School className="mr-2 h-4 w-4" />
-                    School Admin
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Button
+              variant="outline"
+              className="flex items-center"
+              onClick={handleLoginClick}
+            >
+              Login
+            </Button>
             <Button onClick={() => setIsAuthModalOpen(true)}>Register</Button>
           </div>
         </div>
@@ -192,6 +175,44 @@ const Navbar = () => {
           </nav>
         </div>
       </div>
+
+      {/* User Type Selection Dialog */}
+      <Dialog open={isUserTypeDialogOpen} onOpenChange={setIsUserTypeDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-center text-xl">Login as</DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-4 py-4">
+            <Button
+              variant="outline"
+              size="lg"
+              className="flex items-center justify-start h-16 text-lg"
+              onClick={() => openAuthModal('student')}
+            >
+              <GraduationCap className="mr-4 h-6 w-6" />
+              Student
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="flex items-center justify-start h-16 text-lg"
+              onClick={() => openAuthModal('volunteer')}
+            >
+              <Users className="mr-4 h-6 w-6" />
+              Volunteer
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="flex items-center justify-start h-16 text-lg"
+              onClick={() => openAuthModal('school')}
+            >
+              <School className="mr-4 h-6 w-6" />
+              School Admin
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <AuthModal 
         isOpen={isAuthModalOpen} 
