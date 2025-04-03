@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
@@ -95,6 +96,12 @@ const eventsData = [
   }
 ];
 
+// Define formatEventDate outside of the component to be available to both Events and EventCard
+const formatEventDate = (dateString: string) => {
+  const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
 const Events = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -121,12 +128,6 @@ const Events = () => {
 
   const upcomingEvents = filterEvents(eventsData.filter(event => event.upcoming));
   const pastEvents = filterEvents(eventsData.filter(event => !event.upcoming));
-
-  // This function was missing or not properly referenced, adding it here
-  const formatEventDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -313,3 +314,4 @@ const EventCard: React.FC<EventCardProps> = ({ event, isPast = false }) => {
 };
 
 export default Events;
+
