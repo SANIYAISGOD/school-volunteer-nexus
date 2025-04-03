@@ -122,6 +122,7 @@ const Events = () => {
   const upcomingEvents = filterEvents(eventsData.filter(event => event.upcoming));
   const pastEvents = filterEvents(eventsData.filter(event => !event.upcoming));
 
+  // This function was missing or not properly referenced, adding it here
   const formatEventDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return new Date(dateString).toLocaleDateString(undefined, options);
